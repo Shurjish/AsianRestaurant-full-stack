@@ -1,0 +1,114 @@
+{% extends 'Restaurant/restaurant.html.twig' %}
+
+{% block title %}Restaurant Menu{% endblock %}
+
+{% block contenido %}
+    <div class="container">
+        <h1>Restaurant Menu</h1>
+
+        <h2>Japanese Cuisine</h2>
+        <div class="row">
+            {% for dish in japanese %}
+                <div class="col-lg-12">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{ dish.image }}" class="card-img-top" alt="{{ dish.name }}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title text-dark">{{ dish.name }}</h5>
+                                    <p class="card-text text-dark">{{ dish.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <h2>Chinese Cuisine</h2>
+        <div class="row">
+            {% for dish in chinese %}
+                <div class="col-lg-12">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{ dish.image }}" class="card-img-top" alt="{{ dish.name }}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title text-dark">{{ dish.name }}</h5>
+                                    <p class="card-text text-dark">{{ dish.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <h2>Vietnamese Cuisine</h2>
+        <div class="row">
+            {% for dish in vietnamese %}
+                <div class="col-lg-12">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{ dish.image }}" class="card-img-top" alt="{{ dish.name }}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title text-dark">{{ dish.name }}</h5>
+                                    <p class="card-text text-dark">{{ dish.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <h2>Thai Cuisine</h2>
+        <div class="row">
+            {% for dish in thai %}
+                <div class="col-lg-12">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{ dish.image }}" class="card-img-top" alt="{{ dish.name }}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title text-dark">{{ dish.name }}</h5>
+                                    <p class="card-text text-dark">{{ dish.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <h2>Desserts</h2>
+        <div class="row">
+            {% for dish in desserts %}
+                <div class="col-lg-12">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{ dish.image }}" class="card-img-top" alt="{{ dish.name }}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title text-dark">{{ dish.name }}</h5>
+                                    <p class="card-text text-dark">{{ dish.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
