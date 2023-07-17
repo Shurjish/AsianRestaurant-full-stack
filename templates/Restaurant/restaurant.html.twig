@@ -14,12 +14,36 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            background-color: black;
+            background-image: url('/assets/background-image.jpg');
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             color: white;
         }
 
         .black-background .navbar {
             margin-bottom: auto;
+        }
+
+        .black-background .navbar-nav .nav-link {
+            color: white;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .black-background .navbar-nav .nav-link:hover {
+            color: #aaa;
+        }
+
+        .black-background .navbar-nav .nav-link:not(:last-child)::after {
+            content: "|";
+            color: #aaa;
+            margin-left: 10px;
+        }
+
+        .black-background .navbar-brand img {
+            margin-right: 10px;
         }
 
         .black-background footer {
@@ -43,11 +67,13 @@
         }
 
         .black-background .header {
-            background-image: url('{{ asset('assets/header-image.jpg') }}');
-            background-position: center;
-            background-size: cover;
+            position: relative;
             text-align: center;
             padding: 50px 20px;
+            background-image: url('/assets/header-image.jpg');
+            background-position: center;
+            background-size: cover;
+            z-index: 1;
         }
 
         .black-background .header h1 {
@@ -55,7 +81,12 @@
             font-weight: bold;
             color: white;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            margin-bottom: 20px;
+        }
+
+        @media (max-width: 576px) {
+            .black-background .navbar-nav .nav-link {
+                font-size: 16px;
+            }
         }
     </style>
     <title>{% block title %}Welcome!{% endblock %}</title>
@@ -65,23 +96,31 @@
         <div class="header">
             <h1>Symfony - Restaurant</h1>
         </div>
+
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="#"><img height="35px" src="{# LOGO #}"></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                        <a class="nav-link" href="{{path('home')}}">Home</a>
-                        <a class="nav-link" href="{{path('about')}}">About</a>
-                        <a class="nav-link" href="{{path('menu')}}">Menu</a>
-                        <a class="nav-link" href="{{path('booking')}}">Booking</a>
-                        <a class="nav-link" href="{{path('login')}}">Login</a>
-                        <a class="nav-link" href="{{path('register')}}">Register</a>
-                    </div>
-                </div>
-            </div>
+            <a class="navbar-brand" href="#"><img height="35px" src="{# LOGO #}"></a>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('home')}}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('about')}}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('menu')}}">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('booking')}}">Booking</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('login')}}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('register')}}">Register</a>
+                </li>
+            </ul>
         </nav>
 
         <div class="container">
@@ -99,8 +138,6 @@
             </div>
         </footer>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js" integrity="sha384-wAHm6sTs5afojjoEudr9bC1B3QR5fhMEdp6aolXv4Hz6/D1GBKBjc4B9Tdtx10ap" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-pzjw8f+ua5X8K0TAh5HiE5Xz3k+d5+UKZFf0yD9kF8C8T6o8g1c0e+n2u8KIcd/i" crossorigin="anonymous"></script>
 </body>
 </html>
