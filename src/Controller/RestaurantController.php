@@ -22,9 +22,39 @@ class RestaurantController extends AbstractController
         return $this->render("Restaurant/home.html.twig");
     }
 
-    #[Route("/about", name:"about")]
-    public function about() {
-        return $this->render("Restaurant/about.html.twig");
+    #[Route("/about", name: "about")]
+    public function about()
+    {
+        $texts = [
+            [
+                'title' => 'European Restaurant with an Oriental Twist',
+                'content' => [
+                    'Welcome to our European restaurant with a captivating twist of Oriental flavors. Our restaurant takes you on a culinary journey through the vibrant cuisines of Japan, China, Vietnam, and Thailand.',
+                    'Immerse yourself in the artistry of our kitchen as our skilled chefs combine the techniques and ingredients of the East with the classic flavors of Europe. Each dish is carefully crafted to harmonize the delicate balance of flavors, textures, and aromas, creating a dining experience that is both familiar and adventurous.',
+                    'From the subtle elegance of sushi to the bold spices of Szechuan cuisine, our menu showcases the best of both worlds, delighting your taste buds and satisfying your culinary curiosity.',
+                ],
+            ],
+            [
+                'title' => 'A Journey Inspired by the East',
+                'content' => [
+                    'Embark on a gastronomic adventure as we share the inspiring story of our journey through Asia. It all began with three passionate partners who had a deep fascination with the rich culinary traditions of the Far East.',
+                    'Driven by their desire to bring the authentic flavors of Japan, China, Vietnam, and Thailand to the European dining scene, they set off on a voyage of discovery. They ventured into bustling street markets, explored hidden food stalls, and learned from local chefs who graciously shared their age-old recipes and techniques.',
+                    'Through their travels, they gained a profound appreciation for the diversity and depth of Asian cuisine. Today, their shared vision has become a reality, and our restaurant stands as a testament to their dedication and love for the gastronomic treasures of the Orient.',
+                ],
+            ],
+            [
+                'title' => 'Praise from Gastronomic Connoisseurs',
+                'content' => [
+                    'We take great pride in the recognition and accolades we have received from gastronomic connoisseurs around the world. Renowned food critics, influential bloggers, and discerning diners have all applauded the exceptional quality and creativity of our culinary offerings.',
+                    'Our commitment to using the finest ingredients, sourced locally and imported from Asia, ensures that every dish is a masterpiece of flavors and presentation. We strive to exceed the expectations of our guests and create memorable dining experiences that leave a lasting impression.',
+                    'With each dish, we aim to tell a story, showcasing the depth of flavors, the cultural heritage, and the passion behind our culinary creations. We are honored to have earned the trust and admiration of those who appreciate the art of gastronomy.',
+                ],
+            ],
+        ];
+
+        return $this->render("Restaurant/about.html.twig", [
+            'texts' => $texts,
+        ]);
     }
 
     #[Route("/menu", name: "menu")]
