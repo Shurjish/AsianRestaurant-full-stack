@@ -41,11 +41,30 @@
             text-decoration: none;
             margin-right: 10px;
         }
+
+        .black-background .header {
+            background-image: url('{{ asset('assets/header-image.jpg') }}');
+            background-position: center;
+            background-size: cover;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .black-background .header h1 {
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
     </style>
     <title>{% block title %}Welcome!{% endblock %}</title>
 </head>
 <body>
     <div class="black-background">
+        <div class="header">
+            <h1>Symfony - Restaurant</h1>
+        </div>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="#"><img height="35px" src="{# LOGO #}"></a>
