@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Booking;
 use App\Entity\Menu;
+use App\Form\BookingType;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -200,9 +204,41 @@ class RestaurantController extends AbstractController
         ]);
     }
 
-    #[Route("/booking", name:"booking")]
-    public function booking() {
-        return $this->render("Restaurant/restaurant.html.twig");
+    #[Route("/booking", name: "booking")]
+    public function booking(EntityManagerInterface $entityManager, Request $bookingRequest)
+    {
+        $form = $this->createform(BookingType::class);
+        $form->handleRequest($bookingRequest);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $bookingData = $form->getData();
+
+            $booking = new Booking();
+
+            $booking->setName($bookingData['name']);
+            $booking->setPeople($bookingData['people']);
+            $booking->setPhone($bookingData['phone']);
+            $booking->setEmail($bookingData['email']);
+
+            $dateObject = $bookingData['date'];
+            $dateString = $dateObject->format('Y-m-d');
+            $date = \DateTime::createFromFormat('Y-m-d', $dateString);
+            $booking->setDate($date);
+
+            $hour = \DateTime::createFromFormat('H:i', $bookingData['hour']);
+            $booking->setHour($hour);
+
+            $booking->setComments($bookingData['comments']);
+
+            $entityManager->persist($booking);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render("Restaurant/booking.html.twig", [
+            "bookingForm" => $form->createView(),
+        ]);
     }
 
     #[Route("/login", name:"login")]
