@@ -7,7 +7,7 @@ use App\Entity\User;
 use App\Entity\Booking;
 use App\Entity\Menu;
 use App\Form\BookingType;
-use Doctrine\ORM\EntityManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,10 +17,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class RestaurantController extends AbstractController
 {
     private $entityManager;
+    private $passwordHasher;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher)
     {
         $this->entityManager = $entityManager;
+        $this->passwordHasher = $passwordHasher;
     }
 
     #[Route("/home", name:"home")]
@@ -243,15 +245,10 @@ class RestaurantController extends AbstractController
         ]);
     }
 
-    #[Route("/login", name:"login")]
-    public function login() {
-        return $this->render("Restaurant/restaurant.html.twig");
-    }
-
     #[Route("/register", name:"register")]
-    public function register(EntityManagerInterface $entityManager, Request $registerRequest) {
-
-        $form = $this->createform(UserType::class);
+    public function register(Request $registerRequest)
+    {
+        $form = $this->createForm(UserType::class);
         $form->handleRequest($registerRequest);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -259,13 +256,16 @@ class RestaurantController extends AbstractController
 
             $user = new User();
             $user->setUsername($registerData->getUsername());
-            $user->setPassword($registerData->getPassword());
+
+            $encryptedPassword = $this->passwordHasher->hashPassword($user, $registerData->getPassword());
+            $user->setPassword($encryptedPassword);
+
             $user->setName($registerData->getName());
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
 
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render("Restaurant/register.html.twig", [
