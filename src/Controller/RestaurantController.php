@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Form\UserType;
+use App\Entity\User;
 use App\Entity\Booking;
 use App\Entity\Menu;
 use App\Form\BookingType;
@@ -247,7 +249,27 @@ class RestaurantController extends AbstractController
     }
 
     #[Route("/register", name:"register")]
-    public function register() {
-        return $this->render("Restaurant/restaurant.html.twig");
+    public function register(EntityManagerInterface $entityManager, Request $registerRequest) {
+
+        $form = $this->createform(UserType::class);
+        $form->handleRequest($registerRequest);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $registerData = $form->getData();
+
+            $user = new User();
+            $user->setUsername($registerData->getUsername());
+            $user->setPassword($registerData->getPassword());
+            $user->setName($registerData->getName());
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('login');
+        }
+
+        return $this->render("Restaurant/register.html.twig", [
+            "registerForm" => $form->createView(),
+        ]);
     }
 }
